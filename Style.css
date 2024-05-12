@@ -1,0 +1,49 @@
+body {
+    background-color: brown;
+    font-family: cursive;
+}
+
+.pizza {
+    border: 5px solid #4A6C6F;
+    padding: 1em;
+    margin: 1rem;
+    margin-bottom: 0.5em;
+    border-radius: 1em;
+}
+
+.medium_Pizza {
+    background-color: orange;
+}
+
+.Large_Pizza {
+    background-color: yellowgreen;
+}
+
+.small_Pizza {
+    background-color: yellow; 
+}
+
+.contact_us {
+    background-color: #4A6C6F;
+}
+
+.special {
+    background-color: black;
+    color: azure;
+}
+
+@media (min-width: 1000px) {
+    body {
+        background-color: brown;
+    }
+}
+
+@media (min-width: 1000px) {
+    body {
+        background-color: brown;
+    }
+
+    .pizzas {
+        display: flex;
+    }
+}
