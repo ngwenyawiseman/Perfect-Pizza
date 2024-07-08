@@ -1,49 +1,60 @@
 body {
-    background-color: brown;
-    font-family: cursive;
+    background-color: #8B4513;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #fff;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
 }
 
 .pizza {
     border: 5px solid #4A6C6F;
     padding: 1em;
     margin: 1rem;
-    margin-bottom: 0.5em;
     border-radius: 1em;
-}
-
-.medium_Pizza {
-    background-color: orange;
-}
-
-.Large_Pizza {
-    background-color: yellowgreen;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .small_Pizza {
-    background-color: yellow; 
+    background-color: #FFEB3B;
+}
+
+.medium_Pizza {
+    background-color: #FFA726;
+}
+
+.Large_Pizza {
+    background-color: #8BC34A;
 }
 
 .contact_us {
     background-color: #4A6C6F;
+    padding: 20px;
+    border-radius: 1em;
+    color: #fff;
+    margin-top: 2rem;
 }
 
 .special {
-    background-color: black;
-    color: azure;
+    background-color: #000;
+    color: #fff;
+    padding: 1em;
+    border-radius: 1em;
 }
 
 @media (min-width: 1000px) {
     body {
-        background-color: brown;
-    }
-}
-
-@media (min-width: 1000px) {
-    body {
-        background-color: brown;
+        background-color: #8B4513;
     }
 
     .pizzas {
         display: flex;
+        justify-content: center;
+    }
+}
+
+@media (min-width: 768px) {
+    .pizza {
+        margin: 1rem;
     }
 }

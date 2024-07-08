@@ -3,49 +3,215 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfect Pizza</title>
-    <link rel="stylesheet" href="Style.css">
+    <title>Your Perfect Pizza</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>Perfect Pizza</h1>
+<body style="background-color:lightgray">
 
-    <div class="pizzas">
-        <div class="pizza Small_Pizza">
-            <img src="pizza.png" alt="pizza" width="100"">
-            <h2>Small Pizza</h2>
-            <h3>R45.00</h3>
-            <div>
-                Featuring gooey mozzarella cheese, tangy tomato sauce, savory pepperoni slices, earthy mushrooms, and sweet diced onions
-            </div>
+    <div class="pizzaz"
+        x-data="{ small: 0, medium: 0, large: 0, grandTotal: 0, get total() { return (this.small * 54.00 + this.medium * 78.00 + this.large * 120.00).toFixed(2) }, checkout: false, paid: '' }">
+
+        <div class="Your_Perfect_Pizza">
+            <h1>Your Perfect Pizza</h1>
+            <h2>"Welcome! We're delighted to have you as our valued customer."</h2>
+            <h1>Make your pizza Order below:</h1>
         </div>
 
-        <div class="pizza medium_Pizza">
-            <img src="pizza.png" alt="pizza" width="150">
-            <h2>Medium Pizza</h2>
-            <h3>R89.50</h3>
-            <div>
-                it features creamy ricotta cheese, zesty marinara sauce, succulent grilled chicken, smoky roasted bell peppers, and aromatic basil leaves
+        <div id="box"></div>
+        <div class="Shopping_cart">
+            <div class="Shopping cart">
+                <h1>Shopping cart</h1>
+
+                <div class="pizzaz" x-show="small > 0 || medium > 0 || large > 0">
+
+                    <template x-if="small > 0">
+                        <div class="small-cart">
+                            Small:
+                            <template x-if="!checkout">
+                                <button class="Shopping_cart" @click="small++">+</button>
+                            </template>
+                            <span x-text="small"></span>
+                            <template x-if="!checkout">
+                                <button class="Shopping_cart" @click="small--">-</button>
+                            </template>
+                            <span>Price: R<span x-text="(small * 54.00).toFixed(2)"></span></span>
+                        </div>
+                    </template>
+
+                    <template x-if="medium > 0">
+                        <div class="medium-cart">
+                            Medium:
+                            <template x-if="!checkout">
+                                <button class="Shopping_cart" @click="medium++">+</button>
+                            </template>
+                            <span x-text="medium"></span>
+                            <template x-if="!checkout">
+                                <button class="Shopping_cart" @click="medium--">-</button>
+                            </template>
+                            <span>Price: R<span x-text="(medium * 78.00).toFixed(2)"></span></span>
+                        </div>
+                    </template>
+
+                    <template x-if="large > 0">
+                        <div class="large-cart">
+                            Large:
+                            <template x-if="!checkout">
+                                <button class="Shopping_cart" @click="large++">+</button>
+                            </template>
+                            <span x-text="large"></span>
+                            <template x-if="!checkout">
+                                <button class="Shopping_cart" @click="large--">-</button>
+                            </template>
+                            <span>Price: R<span x-text="(large * 120.00).toFixed(2)"></span></span>
+                        </div>
+                    </template>
+
+                    <span><b>Grand total: R</b><span class="Shopping_cart"
+                            x-text="((small * 54.00) + (medium * 78.00) + (large * 120.00)).toFixed(2)"></span>
+
+                        <template x-if="!checkout">
+                            <button class="Shopping_cart" @click="checkout = true">Checkout</button>
+                        </template>
+
+                        <template x-if="checkout">
+                            <label>Amount received from customer: R<input type="number" min="0" step="0.01"
+                                    x-model="paid" /></label>
+                        </template>
+                        <div>
+                            <template x-if="paid == total && checkout">
+                                <div style="color: rgb(19, 208, 25)">Thank you-Enjoy your pizzas!</div>
+                                <button class="Mdesign AW Bdesign"
+                                    @click="small = 0; medium = 0; large = 0; checkout = false; paid = '';">
+                                    Complete Order
+                                </button>
+                            </template>
+                            <template x-if="(parseInt(paid) < total && paid != total && checkout)">
+                                <div x-data="{ showError: true }" x-show="showError"
+                                    x-init="setTimeout(() => { showError = false; }, 5000)"
+                                    style="border: 1px solid rgb(204, 3, 3); color: #e70909;">
+                                    <h2><b>Sorry-insufficient funds..</b></h2>
+                                    <button class="Shopping_cart" @click="showError = false"></button>
+                                </div>
+                            </template>
+
+                        </div>
+
+                        <button class="Shopping_cart"
+                            @click="small = 0; medium = 0; large = 0; checkout = false; paid = '';">
+                            Exit Cart
+                        </button>
+
+                        </template>
+
+                        <template x-if="parseInt(paid) > total && checkout">
+                            <div style="color: rgb(29, 126, 12)">
+                                <br>
+                                <b>Thank you-Enjoy your pizza! Here's your change: R</b><span
+                                    x-text="(parseInt(paid) - total).toFixed(2)"></span>
+                            </div>
+                            <button class="Shopping_cart"
+                                @click="small = 0; medium = 0; large = 0; checkout = false; paid = '';">
+                                Complete the Order
+                            </button>
+                        </template>
+                </div>
             </div>
         </div>
-        <div class="pizza Large_Pizza">
-            <img src="pizza.png" alt="pizza" width="200">
-            <h2>Large Pizza</h2>
-            <h3>R179.00</h3>
-            <div>
-                Enjoy the creamy richness of goat cheese, the robust tang of barbecue sauce, the juicy goodness of grilled shrimp, the crispiness of bacon, and the freshness of spinach leaves
+
+        <div class="pizzas" style="text-align: center;">
+            <div class="pizza small_pizza">
+                <center><img src="pizza.png" alt="pizza" width="100"></center>
+                <h2>Small Pizza</h2>
+                <h3>R54.00</h3>
+                <ul>
+                    <li>Featuring gooey mozzarella cheese, tangy tomato sauce, savory pepperoni slices, earthy
+                        mushrooms, and sweet diced onions</li>
+                    <li>Something with parma ham and fresh mozzarella.</li>
+                    <li>Pizza with bacon and Italian sausage.</li>
+                    <li>Pizza with pepperoni.</li>
+                </ul>
+                <br>
+                <div x-data="{ count: 0 }">
+                    <button class="Mdesign W Bdesign"
+                        @click="count++; small++;document.getElementById('box').scrollIntoView()">BUY</button>
+                    <span x-text="count"></span>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="pizza medium_pizza">
+                <center><img src="pizza.png" alt="pizza" width="150"></center>
+                <h2>Medium Pizza</h2>
+                <h3>R78.00</h3>
+                <ul>
+                    <li>it features creamy ricotta cheese, zesty marinara sauce, succulent grilled chicken, smoky
+                        roasted bell peppers, and aromatic basil leaves</li>
+                    <li>Mushrooms, pepperoni & roasted peppers</li>
+                    <li>Sausage and black olives</li>
+                    <li>Something with loads of mozzarella cheese.</li>
+                </ul>
+                <div>
+                    <br>
+                    <div x-data="{ count: 0 }">
+                        <button class="Mdesign W Bdesign"
+                            @click="count++; medium++;document.getElementById('box').scrollIntoView()">BUY</button>
+                        <span x-text="count"></span>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="pizza large_pizza">
+                <center><img src="pizza.png" alt="pizza" width="200"></center>
+                <h2>Large Pizza</h2>
+                <h3>R120.00</h3>
+                <ul>
+                    <li>Enjoy the creamy richness of goat cheese, the robust tang of barbecue sauce, the juicy goodness
+                        of grilled shrimp, the crispiness of bacon, and the freshness of spinach leaves</li>
+                    <li>Something with mozzarella & creamy goodness in a bite.</li>
+                    <li>Black olives, mushrooms</li>
+                    <li>Garlic, asiago, oil based pizza</li>
+                </ul>
+                <br>
+                <div x-data="{ count: 0 }">
+                    <button class="Mdesign W Bdesign"
+                        @click="count++; large++;document.getElementById('box').scrollIntoView()">BUY</button>
+                    <span x-text="count"></span>
+                </div>
             </div>
         </div>
+        <br>
+    </div>
+    </div>
     </div>
 
+    </div>
     <div class="contact_us">
-        <h2>Contact details</h2>
-        Contact number           : 0627890466, 
-        Our website:             :info@perfectpizza.com,
-        FaceBook & Instagram     : Perfect Pizza Palace,
+
+        <div class="contact">
+            <h2>Contact details</h2>
+            Contact number: 0627890466,
+            Our website: info@perfectpizza.com,
+            Facebook & Instagram: Perfect Pizza Palace
+        </div>
+        <div class="address">
+            <div>
+                Auckland Pizza
+                <br>
+                17 Henley Road, Auckland Park, Johannesburg, 2092.
+            </div>
+        </div>
     </div>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
+<footer class="site-footer">
+    &copy; MntimandeConsultingService 🐊
+</footer>
 
 </html>
