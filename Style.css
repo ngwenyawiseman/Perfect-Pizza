@@ -42,7 +42,7 @@ body {
     border-radius: 1em;
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 960px) {
     body {
         background-color: #8B4513;
     }
